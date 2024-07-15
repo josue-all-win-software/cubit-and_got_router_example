@@ -1,15 +1,27 @@
 import 'package:cubit_example/global/navigation_drawer_items.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomNavigationDrawer extends StatefulWidget {
-  const CustomNavigationDrawer({super.key});
+  final int? selectedIndex;
+
+  const CustomNavigationDrawer({
+    super.key,
+    this.selectedIndex
+  });
 
   @override
   State<CustomNavigationDrawer> createState() => _CustomNavigationDrawerState();
 }
 
 class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    _selectedIndex = widget.selectedIndex ?? 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +33,12 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         setState(() {
           _selectedIndex = index;
         });
+
+        if(index >= navigationDrawerItems.length) return;
+
+        final route = navigationDrawerItems[index].route;
+
+        context.go(route);
       },
       children: [
         Padding(

@@ -15,7 +15,9 @@ class MainMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const CustomNavigationDrawer(),
+      drawer: const CustomNavigationDrawer(
+        selectedIndex: 0,
+      ),
       body: navigationShell,
       bottomNavigationBar: CustomBottomNavigationBar(
         onTap: (index) => navigationShell.goBranch(index),
